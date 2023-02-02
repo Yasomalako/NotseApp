@@ -1,4 +1,4 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import React, { useState } from 'react';
 import {
     View,
@@ -16,7 +16,7 @@ const Intro = () => {
 
     const handleSubmit = async () => {
         const user = { name: user };
-        // await AsyncStorage.setItem('user', JSON.stringify(user));
+     
 
     };
 

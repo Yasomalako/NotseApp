@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './app/screens/Login/login';
 import NoteScreen from './app/screens/notes/notes';
 import Register from './app/screens/register/register';
+import LoginScreen from './app/screens/Login/login';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,7 @@ export default function App() {
       <Stack.Navigator> 
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="notes" component={NoteScreen} />
-        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="intro" component={Intro} />
        
       </Stack.Navigator>
