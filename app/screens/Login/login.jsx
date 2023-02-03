@@ -1,7 +1,8 @@
 import React,{ useEffect, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from "react-native";
 import { useNavigation } from '@react-navigation/core'
-import {auth} from '../../../firebase'
+import { getAuth,onAuthStateChanged } from "firebase/auth";
+
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('')
@@ -10,6 +11,7 @@ export default function LoginScreen() {
     const navigation = useNavigation()
 
     useEffect(() => {
+        const auth = getAuth();
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 navigation.replace("notes")
@@ -20,8 +22,9 @@ export default function LoginScreen() {
     }, [])
 
     const handleLogin = () => {
+        const auth = getAuth();
         auth
-            .signInWithEmailAndPassword(email, password)
+            .signInWithEmailAndPassword(auth,email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
                 console.log('Logged in with:', user.email);
@@ -56,12 +59,6 @@ export default function LoginScreen() {
                     style={styles.button}
                 >
                     <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={handleSignUp}
-                    style={[styles.button, styles.buttonOutline]}
-                >
-                    <Text style={styles.buttonOutlineText}>Register</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

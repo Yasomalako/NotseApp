@@ -14,20 +14,20 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator> 
         <Stack.Screen name="register" component={Register} />
-        <Stack.Screen name="notes" component={NoteScreen} />
+        {/* <Stack.Screen name="notes" component={NoteScreen} />
         <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="intro" component={Intro} />
-       
+        */}
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
