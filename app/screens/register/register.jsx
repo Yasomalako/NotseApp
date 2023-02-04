@@ -1,9 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { KeyboardAvoidingView, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-// import { auth } from '../../../firebase'
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase';
 
 
@@ -13,15 +11,7 @@ const Register = ({ navigation }) => {
     const [name, setName] = useState('')
     const [errors, setErrors] = useState({});
 
-    // useEffect(() => {
-    //     auth
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(userCredentials => {
-    //     const user = userCredentials.user;
-    //     console.log('Registered with:', user.email);
-    //   })
-    //   .catch(error => alert(error.message))
-    // }, [])
+    
 
     const handleSignUp = async () => {
         createUserWithEmailAndPassword(auth,email, password).then((credentials)=> {
