@@ -1,43 +1,45 @@
-import { useNavigation } from '@react-navigation/core'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView,Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 // import { auth } from '../../../firebase'
 // import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase';
 
 
-const Register = () => {
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
-    // const [name, setName] = useState('')
-    const [userData, setUserData] = useState(
-        {name:"",
-        email:"",
-        password:""}
-    )
+const Register = ({ navigation }) => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
     const [errors, setErrors] = useState({});
 
-    const navigation = useNavigation()
+    // useEffect(() => {
+    //     auth
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then(userCredentials => {
+    //     const user = userCredentials.user;
+    //     console.log('Registered with:', user.email);
+    //   })
+    //   .catch(error => alert(error.message))
+    // }, [])
 
-    useEffect(() => {
-        auth.   createUserWithEmailAndPassword(auth, userData.email,userData.password)
-        .then((res) => {
-            console.log('Registered with',res.email)
-            navigation.navigate("login");
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-        });
+    const handleSignUp = async () => {
+        createUserWithEmailAndPassword(auth,email, password).then((credentials)=> {
+              console.log(credentials);
+              console.log(credentials.user);
+            }).catch((err) => {
+              console.error(err);
+            })
+        const user = {
+            name: name,
+            email: email,
+            password: password
+        }
+        await AsyncStorage.setItem('user', JSON.stringify(user))
 
-    }, [])
-
-    const handleSignUp = (text, value) => {
-        setUserData(prevState => ({ ...prevState, [value]: text }));
+        navigation.navigate("login");
     };
-    const handleOnchange = (text, input) => {
-        setUserData(prevState => ({ ...prevState, [input]: text }));
-    };
+
 
     const handleError = (error, input) => {
         setErrors(prevState => ({ ...prevState, [input]: error }));
@@ -47,24 +49,23 @@ const Register = () => {
         Keyboard.dismiss();
         let isValid = true;
 
-        if (!userData.email) {
+        if (!email) {
             handleError('Please input email', 'email');
             isValid = false;
-        } else if (!userData.email.match(/\S+@\S+\.\S+/)) {
+        } else if (!email.match(/\S+@\S+\.\S+/)) {
             handleError('Please input a valid email', 'email');
             isValid = false;
         }
 
-        if (!userData.name) {
+        if (!name) {
             handleError('Please input name', 'name');
             isValid = false;
         }
 
-
-        if (!userData.password) {
+        if (!password) {
             handleError('Please input password', 'password');
             isValid = false;
-        } else if (userData.password.length < 5) {
+        } else if (password.length < 5) {
             handleError('Min password length of 5', 'password');
             isValid = false;
         }
@@ -77,25 +78,25 @@ const Register = () => {
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder="Name"
-                    value={userData.name}
-                    onChangeText={text => setUserData(text)}
-                    // onFocus={text => handleOnchange(text, 'name')}
+                    value={name}
+                    onFocus={() => handleError(null, 'name')}
+                    onChangeText={text => setName(text, 'name')}
                     style={styles.input}
                     error={errors.name}
                 />
                 <TextInput
                     placeholder="Email"
-                    value={userData.email}
-                    onChangeText={text => handleOnchange(text, 'Email')}
-                    // onFocus={text => handleOnchange(text, 'Email')}
+                    value={email}
+                    onFocus={() => handleError(null, 'email')}
+                    onChangeText={text => setEmail(text, 'email')}
                     style={styles.input}
                     error={errors.email}
                 />
                 <TextInput
                     placeholder="Password"
-                    value={userData.password}
-                    onChangeText={text => handleOnchange(text, 'password')}
-                    // onFocus={text => handleOnchange(text, 'password')}
+                    value={password}
+                    onFocus={() => handleError(null, 'password')}
+                    onChangeText={text => setPassword(text, 'password')}
                     style={styles.input}
                     secureTextEntry
                     error={errors.password}
