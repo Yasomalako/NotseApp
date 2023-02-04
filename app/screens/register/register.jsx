@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+;
 import React, {  useState } from 'react'
 import { KeyboardAvoidingView, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth } from '../../../firebase';
+import {AsyncStorage} from 'react-native';
 
 
 const Register = ({ navigation }) => {
@@ -14,20 +15,22 @@ const Register = ({ navigation }) => {
     
 
     const handleSignUp = async () => {
+        navigation.navigate("login");
+         const user = {
+            name: name,
+            email: email,
+            password: password
+        }
+        await AsyncStorage.setItem('user', JSON.stringify(user))
         createUserWithEmailAndPassword(auth,email, password).then((credentials)=> {
               console.log(credentials);
               console.log(credentials.user);
             }).catch((err) => {
               console.error(err);
             })
-        const user = {
-            name: name,
-            email: email,
-            password: password
-        }
-        await AsyncStorage.setItem('user', JSON.stringify(user))
-
-        navigation.navigate("login");
+       
+            navigation.navigate("login")
+        
     };
 
 
@@ -95,10 +98,10 @@ const Register = ({ navigation }) => {
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={handleSignUp}
+                    onPress={handleSignUp.bind(validate)}
                     style={[styles.button, styles.buttonOutline]}
                 >
-                    <Text onPress={validate} style={styles.buttonOutlineText}>Register</Text>
+                    <Text  style={styles.buttonOutlineText}>Register</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

@@ -1,4 +1,3 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AsyncStorage} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {
@@ -52,7 +51,7 @@ const NoteScreen = ({ user, navigation }) => {
   };
 
   const openNote = note => {
-    navigation.navigate('NoteDetail', { note });
+    navigation.navigate('notesDetails', { note });
   };
 
   // const handleOnSearchInput = async text => {
@@ -86,7 +85,7 @@ const NoteScreen = ({ user, navigation }) => {
       <StatusBar barStyle='dark-content' backgroundColor={colors.LIGHT} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          {/* <Text style={styles.header}>{`Good ${greet} ${user.name}`}</Text> */}
+          <Text style={styles.header}>{`welcome ${user.name}`}</Text>
 
 
           <FlatList

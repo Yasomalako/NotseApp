@@ -5,17 +5,35 @@ import Register from './app/screens/register/register';
 import LoginScreen from './app/screens/Login/login';
 import NoteScreen from './app/screens/notes/noteScreen';
 import NoteProvider from './app/contexts/NotProvider-context';
+import { useEffect, useState } from 'react';
+import NoteDetail from './app/componentes/NoteData/notData';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const[user,setUser] = useState({});
+  const findUser = async ()=>{
+    const result = await AsyncStorage.getItem('user');
+    if(result !== null){
+      setUser(JSON.parse(result));
+    }
+  };
+
+  useEffect(()=>{
+    findUser();
+  },[])
+
+const renderNoteScreen = (props) => <NoteScreen {...props} user={user}/>
+
+  if(!user.name) return <Register/>
   return (
     <NavigationContainer>
       <NoteProvider>
         <Stack.Navigator>
           <Stack.Screen name="register" component={Register} />
           <Stack.Screen name="login" component={LoginScreen} />
-          <Stack.Screen name="notescreen" component={NoteScreen} />
+          <Stack.Screen name="notescreen" component={renderNoteScreen} />
+          <Stack.Screen name="notesDetails" component={NoteDetail} />
           
           {/* <Stack.Screen name="notes" component={NoteScreen} /> */}
           

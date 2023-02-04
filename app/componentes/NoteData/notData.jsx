@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 import { useHeaderHeight } from '@react-navigation/stack';
-import colors from '../misc/colors';
-import RoundIconBtn from './RoundIconBtn';
+import colors from '../../colors/colrs';
+import RoundIconBtn from '../NotesModal/NotInputModal';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNotes } from '../contexts/NoteProvider';
-import NoteInputModal from './NoteInputModal';
+import { useNotes } from '../../contexts/NotProvider-context';
+import NoteInputModal from '../NotesModal/NotInputModal';
 import {AsyncStorage} from 'react-native';
 
 const formatDate = ms => {
