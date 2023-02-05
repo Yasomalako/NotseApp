@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
-import { useHeaderHeight } from '@react-navigation/stack';
 import colors from '../../colors/colrs';
 import RoundIconBtn from '../NotesModal/NotInputModal';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNotes } from '../../contexts/NotProvider-context';
 import NoteInputModal from '../NotesModal/NotInputModal';
 import {AsyncStorage} from 'react-native';
@@ -22,7 +20,7 @@ const formatDate = ms => {
 
 const NoteDetail = props => {
   const [note, setNote] = useState(props.route.params.note);
-  const headerHeight = useHeaderHeight();
+  // const headerHeight = useHeaderHeight();
   const { setNotes } = useNotes();
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -88,7 +86,7 @@ const NoteDetail = props => {
   return (
     <>
       <ScrollView
-        contentContainerStyle={[styles.container, { paddingTop: headerHeight }]}
+        contentContainerStyle={[styles.container]}
       >
         <Text style={styles.time}>
           {note.isUpdated

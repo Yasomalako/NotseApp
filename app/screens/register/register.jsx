@@ -1,21 +1,20 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-;
 import React, {  useState } from 'react'
 import { KeyboardAvoidingView, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth } from '../../../firebase';
 import {AsyncStorage} from 'react-native';
 
 
-const Register = ({ navigation }) => {
+const Register = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [errors, setErrors] = useState({});
 
     
-
+// const navigation = useNavigation()
     const handleSignUp = async () => {
-        navigation.navigate("login");
+        
          const user = {
             name: name,
             email: email,
@@ -25,11 +24,12 @@ const Register = ({ navigation }) => {
         createUserWithEmailAndPassword(auth,email, password).then((credentials)=> {
               console.log(credentials);
               console.log(credentials.user);
+              
             }).catch((err) => {
               console.error(err);
             })
-       
-            navigation.navigate("login")
+       navigation.navigate("login");
+            
         
     };
 
