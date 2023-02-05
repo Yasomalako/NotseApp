@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "NotseApp",
-    "slug": "NotseApp",
+    "name": "Nots App",
+    "slug": "Nots-App",
+    "description": "this is notes application based on user location .",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/NotesApp.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/NotesApp.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,6 +22,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.yaso.NotsApp",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -28,6 +31,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "095beea7-8e60-4cbc-b713-dce59d9f4b81"
+      }
     }
   }
 }

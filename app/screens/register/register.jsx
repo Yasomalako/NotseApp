@@ -1,36 +1,37 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { KeyboardAvoidingView, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth } from '../../../firebase';
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 
-const Register = ({navigation}) => {
+const Register = ({ navigation, onFinish }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [errors, setErrors] = useState({});
 
-    
-// const navigation = useNavigation()
+
+    // const navigation = useNavigation()
     const handleSignUp = async () => {
-        
-         const user = {
+
+        const user = {
             name: name,
             email: email,
             password: password
         }
         await AsyncStorage.setItem('user', JSON.stringify(user))
-        createUserWithEmailAndPassword(auth,email, password).then((credentials)=> {
-              console.log(credentials);
-              console.log(credentials.user);
-              
-            }).catch((err) => {
-              console.error(err);
-            })
-       navigation.navigate("login");
-            
-        
+        createUserWithEmailAndPassword(auth, email, password).then((credentials) => {
+            console.log(credentials);
+            console.log(credentials.user);
+
+        }).catch((err) => {
+            console.error(err);
+        })
+        navigation.navigate("login");
+        if (onFinish) onFinish();
+
+
     };
 
 
@@ -101,7 +102,7 @@ const Register = ({navigation}) => {
                     onPress={handleSignUp.bind(validate)}
                     style={[styles.button, styles.buttonOutline]}
                 >
-                    <Text  style={styles.buttonOutlineText}>Register</Text>
+                    <Text style={styles.buttonOutlineText}>Register</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

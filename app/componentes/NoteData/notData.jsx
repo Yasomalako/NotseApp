@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 import colors from '../../colors/colrs';
-import RoundIconBtn from '../NotesModal/NotInputModal';
+import RoundIconBtn from '../NotesModal/RoundedInputBtn';
 import { useNotes } from '../../contexts/NotProvider-context';
-import NoteInputModal from '../NotesModal/NotInputModal';
+import NoteInputModal from '../NotesModal/NoteInputModal';
 import {AsyncStorage} from 'react-native';
 
 const formatDate = ms => {

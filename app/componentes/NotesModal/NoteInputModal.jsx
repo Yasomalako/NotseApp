@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from 'react-native';
 import colors from '../../colors/colrs';
-import RoundIconBtn from '../NotesModal/RoundedInputBtn';
+import RoundIconBtn from './RoundedInputBtn';
 
 const NoteInputModal = ({ visible, onClose, onSubmit, note, isEdit }) => {
   const [title, setTitle] = useState('');

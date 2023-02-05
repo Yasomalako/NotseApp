@@ -10,10 +10,11 @@ import {
   FlatList,
 } from 'react-native';
 import Note from '../../componentes/Notes/Notes';
-import NoteInputModal from '../../componentes/NotesModal/NotInputModal';
+import NoteInputModal from '../../componentes/NotesModal/NoteInputModal';
 import { useNotes } from '../../contexts/NotProvider-context';
 import colors from '../../colors/colrs';
 import RoundIconBtn from '../../componentes/NotesModal/RoundedInputBtn';
+
 
 const reverseData = data => {
   return data.sort((a, b) => {
@@ -26,20 +27,12 @@ const reverseData = data => {
 };
 
 const NoteScreen = ({ user, navigation }) => {
-  const [greet, setGreet] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const { notes, setNotes, findNotes } = useNotes();
 
-  const findGreet = () => {
-    const hrs = new Date().getHours();
-    if (hrs === 0 || hrs < 12) return setGreet('Morning');
-    if (hrs === 1 || hrs < 17) return setGreet('Afternoon');
-    setGreet('Evening');
-  };
 
-  useEffect(() => {
-    findGreet();
-  }, []);
+
+  
 
   const reverseNotes = reverseData(notes);
 
@@ -54,31 +47,6 @@ const NoteScreen = ({ user, navigation }) => {
     navigation.navigate('notesDetails', { note });
   };
 
-  // const handleOnSearchInput = async text => {
-  //   set(text);
-  //   if (!text.trim()) {
-  //     set('');
-  //     set(false);
-  //     return await findNotes();
-  //   }
-  //   const filteredNotes = notes.filter(note => {
-  //     if (note.title.toLowerCase().includes(text.toLowerCase())) {
-  //       return note;
-  //     }
-  //   });
-
-  //   if (filteredNotes.length) {
-  //     setNotes([...filteredNotes]);
-  //   } else {
-  //     set(true);
-  //   }
-  // };
-
-  const handleOnClear = async () => {
-    set('');
-    set(false);
-    await findNotes();
-  };
 
   return (
     <>
@@ -124,6 +92,7 @@ const NoteScreen = ({ user, navigation }) => {
         onClose={() => setModalVisible(false)}
         onSubmit={handleOnSubmit}
       />
+      {/* <MainContainer/> */}
     </>
   );
 };
